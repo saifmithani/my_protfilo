@@ -12,7 +12,7 @@ export const PROFILE = {
   },
 
   contact: {
-    email: "saifmithani.dev@gmail.com", // Set your preferred email address
+    email: "saifmithani97@gmail.com", // Set your preferred email address
     github: "https://github.com/saifmithani", // Replace with real URL or leave empty string ""
     linkedin: "https://linkedin.com/in/saifmithani", // Replace with real URL or leave empty string ""
     instagram: "", // Replace with real URL or leave empty string ""
@@ -20,8 +20,8 @@ export const PROFILE = {
   },
 
   metrics: [
-    { value: "01+", label: "Projects Built" },
-    { value: "01+", label: "Technologies" },
+    { value: "100+", label: "Projects Built" },
+    { value: "100+", label: "Technologies" },
     { value: "100%", label: "Passion for Development" }
   ],
 
