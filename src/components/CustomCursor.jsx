@@ -2,100 +2,116 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function CustomCursor() {
-  const [position, setPosition] = useState({ x: -100, y: -100 });
-  const [isHovered, setIsHovered] = useState(false);
+  const [pos, setPos] = useState({ x: -100, y: -100 });
+  const [followerPos, setFollowerPos] = useState({ x: -100, y: -100 });
   const [cursorText, setCursorText] = useState('');
-  const [isMobile, setIsMobile] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if mobile / touch device
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024 || 'ontouchstart' in window);
+    // Detect touch/mobile
+    const checkTouch = () => {
+      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        setIsTouchDevice(true);
+      }
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
+    checkTouch();
 
-    const onMouseMove = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+    if (isTouchDevice) return;
 
-      // Check hovered element
-      const target = e.target.closest('[data-cursor]');
+    document.body.classList.add('custom-cursor-active');
+
+    const handleMouseMove = (e) => {
+      if (!isVisible) setIsVisible(true);
+      setPos({ x: e.clientX, y: e.clientY });
+
+      // Check hovered element data attribute or standard interactives
+      const target = e.target.closest('[data-cursor], a, button, [role="button"]');
       if (target) {
         setIsHovered(true);
-        setCursorText(target.getAttribute('data-cursor') || '');
-      } else {
-        const interactive = e.target.closest('a, button, input, textarea, [role="button"]');
-        if (interactive) {
-          setIsHovered(true);
-          setCursorText('');
+        const text = target.getAttribute('data-cursor');
+        if (text) {
+          setCursorText(text);
         } else {
-          setIsHovered(false);
           setCursorText('');
         }
+      } else {
+        setIsHovered(false);
+        setCursorText('');
       }
     };
 
-    if (!isMobile) {
-      document.body.classList.add('custom-cursor-enabled');
-      window.addEventListener('mousemove', onMouseMove);
-    } else {
-      document.body.classList.remove('custom-cursor-enabled');
-    }
+    const handleMouseLeave = () => setIsVisible(false);
+    const handleMouseEnter = () => setIsVisible(true);
+
+    window.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('mouseenter', handleMouseEnter);
 
     return () => {
-      document.body.classList.remove('custom-cursor-enabled');
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('resize', checkMobile);
+      document.body.classList.remove('custom-cursor-active');
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [isMobile]);
+  }, [isTouchDevice, isVisible]);
 
-  if (isMobile) return null;
+  // Smooth lerp follower position
+  useEffect(() => {
+    if (isTouchDevice) return;
+    let animationFrame;
+    let currentX = followerPos.x;
+    let currentY = followerPos.y;
+
+    const render = () => {
+      // Smooth interpolation coefficient
+      currentX += (pos.x - currentX) * 0.18;
+      currentY += (pos.y - currentY) * 0.18;
+      setFollowerPos({ x: currentX, y: currentY });
+      animationFrame = requestAnimationFrame(render);
+    };
+
+    animationFrame = requestAnimationFrame(render);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [pos, isTouchDevice]);
+
+  if (isTouchDevice || !isVisible) return null;
+
+  const hasText = Boolean(cursorText);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[120] overflow-hidden">
-      {/* Outer Expandable Ring */}
+    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
+      {/* Primary Small Dot */}
       <motion.div
-        className="fixed top-0 left-0 flex items-center justify-center rounded-full bg-sky-500/10 border border-sky-400/40 backdrop-blur-[2px] shadow-lg shadow-sky-500/20"
-        animate={{
-          x: position.x - (cursorText ? 48 : isHovered ? 24 : 12),
-          y: position.y - (cursorText ? 48 : isHovered ? 24 : 12),
-          width: cursorText ? 96 : isHovered ? 48 : 24,
-          height: cursorText ? 96 : isHovered ? 48 : 24,
-          scale: 1,
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-cyan-400 pointer-events-none z-50 shadow-[0_0_10px_#00f0ff]"
+        style={{
+          transform: `translate3d(${pos.x - 4}px, ${pos.y - 4}px, 0)`,
         }}
-        transition={{
-          type: "spring",
-          damping: 28,
-          stiffness: 350,
-          mass: 0.5,
+        transition={{ type: 'spring', damping: 40, stiffness: 400, mass: 0.1 }}
+      />
+
+      {/* Larger Outer Follower Ring / Badge */}
+      <div
+        className={`fixed top-0 left-0 pointer-events-none z-40 flex items-center justify-center rounded-full transition-all duration-300 ease-out border ${
+          hasText
+            ? 'w-28 h-28 bg-cyan-500/20 backdrop-blur-sm border-cyan-400/50 shadow-[0_0_20px_rgba(0,240,255,0.25)]'
+            : isHovered
+            ? 'w-12 h-12 bg-white/10 border-cyan-400/40 backdrop-blur-[2px]'
+            : 'w-8 h-8 border-white/20 bg-transparent'
+        }`}
+        style={{
+          transform: `translate3d(${followerPos.x - (hasText ? 56 : isHovered ? 24 : 16)}px, ${
+            followerPos.y - (hasText ? 56 : isHovered ? 24 : 16)
+          }px, 0)`,
         }}
       >
-        {cursorText && (
-          <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-[10px] font-mono font-bold tracking-tight text-white uppercase text-center px-2"
-          >
+        {hasText && (
+          <span className="text-[10px] font-mono font-bold tracking-wider text-cyan-200 uppercase px-2 text-center select-none leading-tight">
             {cursorText}
-          </motion.span>
+          </span>
         )}
-      </motion.div>
-
-      {/* Inner Precision Dot */}
-      <motion.div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-sky-400 shadow-sm shadow-sky-300"
-        animate={{
-          x: position.x - 4,
-          y: position.y - 4,
-          opacity: cursorText ? 0 : 1,
-        }}
-        transition={{
-          type: "spring",
-          damping: 35,
-          stiffness: 500,
-          mass: 0.1,
-        }}
-      />
+      </div>
     </div>
   );
 }

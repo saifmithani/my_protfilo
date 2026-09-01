@@ -1,35 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Code2, ArrowUpRight } from 'lucide-react';
-import { PROFILE } from '../config/profile';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+import MagneticButton from './MagneticButton';
 
 const NAV_LINKS = [
-  { label: 'HOME', href: '#home' },
+  { label: 'WORK', href: '#projects' },
   { label: 'ABOUT', href: '#about' },
   { label: 'SKILLS', href: '#skills' },
-  { label: 'PROJECTS', href: '#projects' },
-  { label: 'EXPERIENCE', href: '#experience' },
+  { label: 'EXPERIMENTS', href: '#playground' },
   { label: 'CONTACT', href: '#contact' },
 ];
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      if (window.scrollY > 40) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
 
-      // Section intersection observer fallback
-      const sections = NAV_LINKS.map(link => link.href.substring(1));
+      // Track active section for indicator
+      const sections = ['hero', 'about', 'projects', 'skills', 'playground', 'journey', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const sectionEl = document.getElementById(sections[i]);
-        if (sectionEl && sectionEl.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(sectionId);
+            break;
+          }
         }
       }
     };
@@ -38,117 +45,141 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (e, href) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4 transition-all duration-300 pointer-events-none">
-      <motion.nav
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`pointer-events-auto w-full max-w-5xl rounded-full transition-all duration-300 flex items-center justify-between px-5 md:px-7 ${
-          isScrolled
-            ? 'py-3 bg-zinc-950/80 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/80'
-            : 'py-4 bg-zinc-900/40 backdrop-blur-md border border-white/5'
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+          scrolled ? 'py-3' : 'py-6'
         }`}
       >
-        {/* Brand Logo */}
-        <a
-          href="#home"
-          data-cursor="SAIF"
-          className="flex items-center gap-2.5 group focus:outline-none"
-        >
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-sky-400 to-indigo-500 flex items-center justify-center text-white font-display font-bold text-sm shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform">
-            SM
-          </div>
-          <span className="font-display font-bold text-sm tracking-tight text-white group-hover:text-sky-400 transition-colors">
-            {PROFILE.name}
-          </span>
-        </a>
-
-        {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-          {NAV_LINKS.map((link) => {
-            const isActive = activeSection === link.href.substring(1);
-            return (
-              <a
-                key={link.label}
-                href={link.href}
-                className={`relative px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-200 ${
-                  isActive
-                    ? 'text-white font-semibold'
-                    : 'text-zinc-400 hover:text-white'
-                }`}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="activePill"
-                    className="absolute inset-0 rounded-full bg-gradient-to-r from-sky-500/20 to-indigo-500/20 border border-sky-400/30"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{link.label}</span>
-              </a>
-            );
-          })}
-        </div>
-
-        {/* Right CTA / Freelance status */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          {/* Logo */}
           <a
-            href="#contact"
-            data-cursor="LET'S TALK"
-            className="px-4 py-2 rounded-full text-xs font-mono font-medium text-white bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 transition-all shadow-md shadow-sky-500/20 hover:shadow-sky-500/40 flex items-center gap-1.5 group"
+            href="#hero"
+            onClick={(e) => scrollToSection(e, '#hero')}
+            className="group flex items-center gap-2 text-zinc-100 font-display font-bold tracking-tight text-lg"
+            data-cursor="SAIF"
           >
-            <span>Let's Talk</span>
-            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <span className="text-cyan-400 group-hover:rotate-12 transition-transform duration-300">✦</span>
+            <span>SAIF</span>
+            <span className="text-zinc-500 font-mono text-sm font-normal">/</span>
           </a>
-        </div>
 
-        {/* Mobile Hamburger Button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors focus:outline-none"
-          aria-label="Toggle Navigation Menu"
-        >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </motion.nav>
-
-      {/* Mobile Menu Drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="pointer-events-auto absolute top-20 left-4 right-4 bg-zinc-950/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-6 shadow-2xl md:hidden z-50 flex flex-col gap-4"
+          {/* Desktop Navigation Links */}
+          <nav
+            className={`hidden md:flex items-center gap-1 rounded-full px-4 py-1.5 transition-all duration-300 border ${
+              scrolled
+                ? 'bg-[#121216]/80 backdrop-blur-md border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
+                : 'bg-white/[0.03] border-white/5 backdrop-blur-[2px]'
+            }`}
           >
-            <div className="flex flex-col gap-2">
-              {NAV_LINKS.map((link) => (
+            {NAV_LINKS.map((link) => {
+              const sectionId = link.href.replace('#', '');
+              const isActive = activeSection === sectionId;
+
+              return (
                 <a
                   key={link.label}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 rounded-xl text-sm font-mono tracking-wider text-zinc-300 hover:text-white hover:bg-white/5 transition-all flex items-center justify-between"
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  data-cursor={link.label}
+                  className={`relative px-3.5 py-1.5 text-xs font-mono tracking-wider transition-colors duration-200 ${
+                    isActive ? 'text-cyan-300 font-semibold' : 'text-zinc-400 hover:text-zinc-100'
+                  }`}
                 >
-                  <span>{link.label}</span>
-                  <ArrowUpRight className="w-4 h-4 opacity-50" />
+                  {isActive && (
+                    <motion.span
+                      layoutId="activeNavBg"
+                      className="absolute inset-0 bg-cyan-500/10 rounded-full border border-cyan-400/20"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{link.label}</span>
                 </a>
-              ))}
-            </div>
+              );
+            })}
+          </nav>
 
-            <div className="pt-3 border-t border-white/10">
+          {/* Right CTA Button */}
+          <div className="hidden md:flex items-center">
+            <MagneticButton dataCursor="TALK →">
               <a
                 href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-3 rounded-xl text-xs font-mono font-bold text-center text-white bg-gradient-to-r from-sky-500 to-indigo-600 block shadow-lg shadow-sky-500/20"
+                onClick={(e) => scrollToSection(e, '#contact')}
+                className="group flex items-center gap-1.5 px-4 py-2 text-xs font-mono tracking-wider rounded-full bg-zinc-900 border border-white/15 text-zinc-200 hover:border-cyan-400/50 hover:text-cyan-300 transition-all duration-300 shadow-sm"
               >
-                LET'S WORK TOGETHER
+                <span>GET IN TOUCH</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
               </a>
+            </MagneticButton>
+          </div>
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Navigation Menu"
+            className="md:hidden p-2 rounded-full bg-zinc-900 border border-white/10 text-zinc-200 hover:text-cyan-400 transition-colors"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </header>
+
+      {/* Fullscreen Mobile Navigation Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="fixed inset-0 z-30 bg-[#0a0a0c]/95 backdrop-blur-xl flex flex-col justify-between p-8 pt-28 md:hidden border-b border-white/10"
+          >
+            <div className="space-y-6">
+              <span className="text-[10px] font-mono tracking-widest text-cyan-400 uppercase">
+                // NAVIGATION
+              </span>
+              <div className="flex flex-col gap-4">
+                {NAV_LINKS.map((link, idx) => (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    onClick={(e) => scrollToSection(e, link.href)}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.05 + 0.1 }}
+                    className="text-3xl font-display font-bold text-zinc-200 hover:text-cyan-400 flex items-center justify-between py-2 border-b border-white/5"
+                  >
+                    <span>{link.label}</span>
+                    <ArrowUpRight className="w-6 h-6 text-zinc-600" />
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-4 pt-6 border-t border-white/10">
+              <span className="text-xs font-mono text-zinc-400 block">DIRECT CONTACT</span>
+              <a
+                href="mailto:saifmithani97@gmail.com"
+                className="text-sm font-mono text-cyan-300 hover:underline block"
+              >
+                saifmithani97@gmail.com
+              </a>
+              <p className="text-xs text-zinc-500 font-mono">B.Tech Student & Full Stack Web Developer</p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

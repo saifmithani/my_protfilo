@@ -1,20 +1,30 @@
-export const JOURNEY_MILESTONES = [
+export const MILESTONES = [
   {
-    period: "Education",
-    title: "B.Tech Student",
-    description: "Pursuing B.Tech degree, mastering core computer science principles, data structures, Java, Python, and relational database systems (MySQL).",
-    highlight: "Computer Science & Engineering Foundation"
+    step: "01",
+    phase: "B.TECH COMPUTER SCIENCE",
+    period: "FOUNDATION",
+    title: "Computer Science Core",
+    description: "Built strong fundamentals in data structures, algorithms, Java, Python, and relational database systems (MySQL)."
   },
   {
-    period: "Specialization",
-    title: "Web Development",
-    description: "Expanded into modern full-stack web engineering, building interactive React applications, API integrations, and intuitive user interfaces.",
-    highlight: "React.js, REST APIs & Modern Frontend"
+    step: "02",
+    phase: "WEB DEVELOPMENT",
+    period: "SPECIALIZATION",
+    title: "Full-Stack Web Engineering",
+    description: "Focused heavily on modern web stacks: React, modern JavaScript, API design, responsive UI engineering, and backend integrations."
   },
   {
-    period: "Client Projects",
-    title: "Freelance Development",
-    description: "Delivering customized web applications, business platforms, and responsive websites for freelance clients and modern web experiences.",
-    highlight: "Building & Delivering Production Web Products"
+    step: "03",
+    phase: "PROJECTS & FREELANCE",
+    period: "PRODUCTION WORK",
+    title: "Building Real Products",
+    description: "Designed and engineered web applications like Inventra (AI inventory SaaS) and interactive web experiences for client and personal projects."
+  },
+  {
+    step: "04",
+    phase: "CURRENT WORK",
+    period: "PRESENT",
+    title: "Web Engineering & Growth",
+    description: "Actively building web applications, exploring advanced full-stack architectures, and open for select freelance and developer opportunities."
   }
 ];

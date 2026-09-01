@@ -1,45 +1,45 @@
 export const SKILL_CATEGORIES = [
   {
     id: "frontend",
-    title: "Frontend",
-    subtitle: "Creating interactive, modern web user interfaces",
+    title: "FRONTEND",
+    subtitle: "User interfaces & client-side engineering",
     skills: [
-      { name: "React.js", desc: "Component architecture, hooks & state management" },
-      { name: "JavaScript", desc: "ES6+, async/await & DOM manipulation" },
-      { name: "HTML5", desc: "Semantic HTML & web accessibility standards" },
-      { name: "CSS3", desc: "Flexbox, Grid, animations & custom styling" },
-      { name: "Responsive Design", desc: "Mobile-first layouts across device screens" }
+      { name: "React.js", note: "Primary library for component-driven interfaces and application state." },
+      { name: "JavaScript (ES6+)", note: "Core language used for asynchronous operations and interactive logic." },
+      { name: "HTML5", note: "Semantic structure and accessible document layout standards." },
+      { name: "CSS3", note: "Custom styling, layout algorithms (Flexbox/Grid), and animations." },
+      { name: "Responsive Layouts", note: "Tailoring seamless layouts for mobile, tablet, and desktop screens." }
     ]
   },
   {
     id: "backend",
-    title: "Backend",
-    subtitle: "Building server logic and reliable API integrations",
+    title: "BACKEND",
+    subtitle: "Server architecture & API integrations",
     skills: [
-      { name: "Python", desc: "Scripting, backend logic & automation tasks" },
-      { name: "Java", desc: "Object-oriented programming & core software logic" },
-      { name: "REST APIs", desc: "API design, endpoints integration & JSON handling" }
+      { name: "Python", note: "Used for scripting, data logic, backend integration, and automation." },
+      { name: "Java", note: "Core object-oriented programming foundation and software logic." },
+      { name: "REST APIs", note: "Designing and consuming clean, structured JSON endpoints." }
     ]
   },
   {
     id: "database",
-    title: "Database",
-    subtitle: "Data structuring and cloud storage management",
+    title: "DATABASE",
+    subtitle: "Relational & cloud data management",
     skills: [
-      { name: "MySQL", desc: "Relational database queries, schemas & joins" },
-      { name: "Firebase", desc: "Authentication, hosting & cloud services" },
-      { name: "Firestore", desc: "NoSQL document database management" }
+      { name: "MySQL", note: "Relational database queries, schema normalization, and table joins." },
+      { name: "Firebase", note: "Realtime data synchronization, cloud hosting, and user auth." },
+      { name: "Firestore", note: "NoSQL document storage management for modern web apps." }
     ]
   },
   {
     id: "tools",
-    title: "Tools & Environment",
-    subtitle: "Development workflow and version control tools",
+    title: "TOOLS & ENVIRONMENT",
+    subtitle: "Version control & developer workflow",
     skills: [
-      { name: "Git", desc: "Version control, branching & commit workflows" },
-      { name: "GitHub", desc: "Repository hosting & code collaboration" },
-      { name: "VS Code", desc: "Customized developer IDE workspace" },
-      { name: "npm", desc: "Package management & dependency build scripts" }
+      { name: "Git", note: "Local version control, branch management, and commit discipline." },
+      { name: "GitHub", note: "Remote code repositories and project collaboration." },
+      { name: "VS Code", note: "Configured local environment with debugging & linting extensions." },
+      { name: "npm / Vite", note: "Package dependency management and modern module bundling." }
     ]
   }
 ];

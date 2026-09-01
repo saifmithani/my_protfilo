@@ -8,47 +8,40 @@ export default {
     extend: {
       colors: {
         dark: {
-          bg: "#050505",
-          surface: "#0D0D0F",
-          card: "#121216",
-          border: "rgba(255, 255, 255, 0.08)",
-          borderHover: "rgba(255, 255, 255, 0.20)",
-          text: "#FFFFFF",
-          muted: "#A1A1AA",
-          subtle: "#71717A",
+          bg: "#0a0a0c",
+          surface: "#121216",
+          card: "#18181f",
+          border: "rgba(255, 255, 255, 0.07)",
+          borderHover: "rgba(255, 255, 255, 0.18)",
+          text: "#fafafa",
+          muted: "#a1a1aa",
+          subtle: "#71717a",
         },
         accent: {
-          cyan: "#38BDF8",
-          violet: "#818CF8",
-          purple: "#A855F7",
-          emerald: "#34D399",
+          cyan: "#00f0ff",
+          sky: "#38bdf8",
+          amber: "#f59e0b",
+          emerald: "#10b981",
         }
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
         display: ['"Space Grotesk"', 'sans-serif'],
-        mono: ['"Fira Code"', 'monospace'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
       animation: {
-        'float-slow': 'float 6s ease-in-out infinite',
-        'float-delayed': 'float 7s ease-in-out 2s infinite',
-        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
-        'spin-slow': 'spin 12s linear infinite',
+        'grid-shift': 'gridShift 30s linear infinite',
+        'pulse-subtle': 'pulseSubtle 4s ease-in-out infinite',
       },
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-12px)' },
+        gridShift: {
+          '0%': { transform: 'translate(0, 0)' },
+          '100%': { transform: 'translate(30px, 30px)' }
         },
-        pulseGlow: {
-          '0%, 100%': { opacity: 0.4, transform: 'scale(1)' },
-          '50%': { opacity: 0.8, transform: 'scale(1.05)' },
+        pulseSubtle: {
+          '0%, 100%': { opacity: '0.4' },
+          '50%': { opacity: '0.8' }
         }
-      },
-      boxShadow: {
-        'glow-cyan': '0 0 25px -5px rgba(56, 189, 248, 0.3)',
-        'glow-violet': '0 0 25px -5px rgba(129, 140, 248, 0.3)',
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
       }
     },
   },

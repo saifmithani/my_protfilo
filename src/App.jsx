@@ -1,52 +1,58 @@
-import React, { useState } from 'react';
-import Preloader from './components/Preloader';
-import ScrollProgress from './components/ScrollProgress';
+import React, { useEffect } from 'react';
+import Lenis from 'lenis';
 import CustomCursor from './components/CustomCursor';
-import BackgroundEffects from './components/BackgroundEffects';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Journey from './components/Journey';
-import Services from './components/Services';
-import WhyWorkWithMe from './components/WhyWorkWithMe';
-import CodeShowcase from './components/CodeShowcase';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import HeroSection from './sections/HeroSection';
+import AboutSection from './sections/AboutSection';
+import ProjectsSection from './sections/ProjectsSection';
+import SkillsSection from './sections/SkillsSection';
+import PlaygroundSection from './sections/PlaygroundSection';
+import JourneySection from './sections/JourneySection';
+import ContactSection from './sections/ContactSection';
+import Footer from './sections/Footer';
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    // Initialize Lenis Smooth Scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 2,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white selection:bg-sky-500/30 selection:text-sky-200 relative font-sans">
-      {/* Fast Cinematic Entrance Loader */}
-      {loading && <Preloader onComplete={() => setLoading(false)} />}
-
-      {/* Top Viewport Scroll Progress Line */}
-      <ScrollProgress />
-
-      {/* Desktop Dynamic Custom Cursor */}
+    <div className="bg-[#0a0a0c] text-zinc-100 min-h-screen relative font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
+      {/* Interactive Custom Cursor */}
       <CustomCursor />
 
-      {/* Ambient Gradient Blobs, Grid Pattern & Noise */}
-      <BackgroundEffects />
-
-      {/* Main Layout Layers */}
+      {/* Navigation Header */}
       <Navbar />
-      
-      <main className="relative z-10">
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Journey />
-        <Services />
-        <WhyWorkWithMe />
-        <CodeShowcase />
-        <Contact />
+
+      {/* Page Sections */}
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <ProjectsSection />
+        <SkillsSection />
+        <PlaygroundSection />
+        <JourneySection />
+        <ContactSection />
       </main>
 
+      {/* Footer */}
       <Footer />
     </div>
   );
