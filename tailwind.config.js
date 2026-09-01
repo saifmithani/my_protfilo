@@ -7,21 +7,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: {
-          bg: "#0a0a0c",
-          surface: "#121216",
-          card: "#18181f",
-          border: "rgba(255, 255, 255, 0.07)",
-          borderHover: "rgba(255, 255, 255, 0.18)",
-          text: "#fafafa",
-          muted: "#a1a1aa",
-          subtle: "#71717a",
+        light: {
+          bg: "#FAFAFA",
+          surface: "#FFFFFF",
+          card: "#F5F5F5",
+          subtle: "#F0F0F0",
+          border: "#E5E5E5",
+          borderHover: "#111111",
+          text: "#111111",
+          secondary: "#555555",
+          muted: "#888888",
         },
         accent: {
-          cyan: "#00f0ff",
-          sky: "#38bdf8",
-          amber: "#f59e0b",
-          emerald: "#10b981",
+          blue: "#2563EB",
+          sky: "#0284C7",
+          amber: "#D97706",
+          emerald: "#059669",
         }
       },
       fontFamily: {
@@ -29,19 +30,9 @@ export default {
         display: ['"Space Grotesk"', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
-      animation: {
-        'grid-shift': 'gridShift 30s linear infinite',
-        'pulse-subtle': 'pulseSubtle 4s ease-in-out infinite',
-      },
-      keyframes: {
-        gridShift: {
-          '0%': { transform: 'translate(0, 0)' },
-          '100%': { transform: 'translate(30px, 30px)' }
-        },
-        pulseSubtle: {
-          '0%, 100%': { opacity: '0.4' },
-          '50%': { opacity: '0.8' }
-        }
+      boxShadow: {
+        'subtle': '0 2px 10px rgba(0, 0, 0, 0.03)',
+        'card-hover': '0 12px 30px rgba(0, 0, 0, 0.06)',
       }
     },
   },

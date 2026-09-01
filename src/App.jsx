@@ -34,7 +34,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="bg-[#0a0a0c] text-zinc-100 min-h-screen relative font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className="bg-[#FAFAFA] text-[#111111] min-h-screen relative font-sans selection:bg-blue-600/15 selection:text-blue-900">
       {/* Interactive Custom Cursor */}
       <CustomCursor />
 

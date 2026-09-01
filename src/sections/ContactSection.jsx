@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Copy, Check, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Mail, Github, Linkedin, Copy, Check, ArrowUpRight } from 'lucide-react';
 import { PROFILE } from '../data/profile';
 import MagneticButton from '../components/MagneticButton';
 
@@ -14,20 +14,17 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-32 px-6 bg-[#0a0a0c] relative overflow-hidden border-t border-white/5">
-      {/* Background Accent Ambient */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none" />
-
+    <section id="contact" className="py-32 px-6 bg-[#FAFAFA] relative overflow-hidden border-t border-[#E5E5E5]">
       <div className="max-w-7xl mx-auto text-center md:text-left">
         {/* Section Tag */}
         <div className="flex items-center justify-center md:justify-start gap-2 mb-6">
-          <span className="w-8 h-[1px] bg-cyan-400" />
-          <span className="text-xs font-mono font-semibold tracking-widest text-cyan-400 uppercase">
+          <span className="w-8 h-[1px] bg-blue-600" />
+          <span className="text-xs font-mono font-semibold tracking-widest text-blue-600 uppercase">
             07 // INITIATE CONTACT
           </span>
         </div>
 
-        {/* Large Editorial Headline */}
+        {/* Large Editorial Black Headline */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -35,13 +32,13 @@ export default function ContactSection() {
           transition={{ duration: 0.7 }}
           className="mb-12"
         >
-          <h2 className="text-5xl sm:text-7xl lg:text-8xl font-display font-extrabold text-zinc-100 tracking-tight leading-[0.95] mb-6">
+          <h2 className="text-5xl sm:text-7xl lg:text-8xl font-display font-extrabold text-[#111111] tracking-tight leading-[0.95] mb-6">
             LET'S BUILD <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-200 to-amber-300">
+            <span className="text-blue-600">
               SOMETHING.
             </span>
           </h2>
-          <p className="text-lg sm:text-xl font-sans text-zinc-400 max-w-xl font-light">
+          <p className="text-lg sm:text-xl font-sans text-[#555555] max-w-xl font-normal">
             Have a project, freelance opportunity, or technical discussion in mind? Drop me an email directly.
           </p>
         </motion.div>
@@ -58,7 +55,7 @@ export default function ContactSection() {
           <MagneticButton dataCursor="EMAIL ME">
             <a
               href={`mailto:${PROFILE.contact.email}`}
-              className="px-8 py-5 rounded-full bg-cyan-400 text-zinc-950 font-mono text-sm font-extrabold tracking-wider hover:bg-cyan-300 transition-all flex items-center gap-3 shadow-[0_0_35px_rgba(0,240,255,0.35)] group"
+              className="px-8 py-5 rounded-full bg-[#111111] text-[#FAFAFA] font-mono text-sm font-extrabold tracking-wider hover:bg-blue-600 transition-all flex items-center gap-3 shadow-md group"
             >
               <span>GET IN TOUCH</span>
               <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -69,27 +66,27 @@ export default function ContactSection() {
           <button
             onClick={handleCopyEmail}
             data-cursor="COPY"
-            className="px-6 py-4 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 font-mono text-xs font-medium hover:border-cyan-400/40 hover:text-cyan-300 transition-all flex items-center gap-2"
+            className="px-6 py-4 rounded-full bg-white border border-[#E5E5E5] text-[#111111] font-mono text-xs font-semibold hover:border-[#111111] transition-all flex items-center gap-2 shadow-subtle"
           >
-            {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+            {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
             <span>{copied ? 'EMAIL COPIED TO CLIPBOARD!' : PROFILE.contact.email}</span>
           </button>
         </motion.div>
 
         {/* Social / Direct Link Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-12 border-t border-white/5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-12 border-t border-[#E5E5E5]">
           
           <a
             href={`mailto:${PROFILE.contact.email}`}
             data-cursor="OPEN"
-            className="p-6 rounded-2xl bg-[#121218] border border-white/5 hover:border-cyan-400/40 transition-all duration-300 group"
+            className="p-6 rounded-xl bg-white border border-[#E5E5E5] hover:border-blue-600 transition-all duration-300 shadow-subtle group"
           >
             <div className="flex items-center justify-between mb-4">
-              <Mail className="w-5 h-5 text-cyan-400" />
-              <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover:text-cyan-400 transition-colors" />
+              <Mail className="w-5 h-5 text-blue-600" />
+              <ArrowUpRight className="w-4 h-4 text-[#888888] group-hover:text-blue-600 transition-colors" />
             </div>
-            <span className="text-[11px] font-mono text-zinc-500 uppercase block mb-1">DIRECT EMAIL</span>
-            <span className="text-sm font-mono font-semibold text-zinc-200 group-hover:text-cyan-300 transition-colors">
+            <span className="text-[11px] font-mono text-[#888888] uppercase block mb-1 font-semibold">DIRECT EMAIL</span>
+            <span className="text-sm font-mono font-bold text-[#111111] group-hover:text-blue-600 transition-colors">
               {PROFILE.contact.email}
             </span>
           </a>
@@ -99,14 +96,14 @@ export default function ContactSection() {
             target="_blank"
             rel="noopener noreferrer"
             data-cursor="GITHUB →"
-            className="p-6 rounded-2xl bg-[#121218] border border-white/5 hover:border-cyan-400/40 transition-all duration-300 group"
+            className="p-6 rounded-xl bg-white border border-[#E5E5E5] hover:border-blue-600 transition-all duration-300 shadow-subtle group"
           >
             <div className="flex items-center justify-between mb-4">
-              <Github className="w-5 h-5 text-cyan-400" />
-              <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover:text-cyan-400 transition-colors" />
+              <Github className="w-5 h-5 text-blue-600" />
+              <ArrowUpRight className="w-4 h-4 text-[#888888] group-hover:text-blue-600 transition-colors" />
             </div>
-            <span className="text-[11px] font-mono text-zinc-500 uppercase block mb-1">SOURCE CODE</span>
-            <span className="text-sm font-mono font-semibold text-zinc-200 group-hover:text-cyan-300 transition-colors">
+            <span className="text-[11px] font-mono text-[#888888] uppercase block mb-1 font-semibold">SOURCE CODE</span>
+            <span className="text-sm font-mono font-bold text-[#111111] group-hover:text-blue-600 transition-colors">
               github.com/saifmithani
             </span>
           </a>
@@ -116,15 +113,15 @@ export default function ContactSection() {
             target="_blank"
             rel="noopener noreferrer"
             data-cursor="LINKEDIN →"
-            className="p-6 rounded-2xl bg-[#121218] border border-white/5 hover:border-cyan-400/40 transition-all duration-300 group"
+            className="p-6 rounded-xl bg-white border border-[#E5E5E5] hover:border-blue-600 transition-all duration-300 shadow-subtle group"
           >
             <div className="flex items-center justify-between mb-4">
-              <Linkedin className="w-5 h-5 text-cyan-400" />
-              <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover:text-cyan-400 transition-colors" />
+              <Linkedin className="w-5 h-5 text-blue-600" />
+              <ArrowUpRight className="w-4 h-4 text-[#888888] group-hover:text-blue-600 transition-colors" />
             </div>
-            <span className="text-[11px] font-mono text-zinc-500 uppercase block mb-1">PROFESSIONAL PROFILE</span>
-            <span className="text-sm font-mono font-semibold text-zinc-200 group-hover:text-cyan-300 transition-colors">
-              linkedin.com/in/saifmithani
+            <span className="text-[11px] font-mono text-[#888888] uppercase block mb-1 font-semibold">PROFESSIONAL PROFILE</span>
+            <span className="text-sm font-mono font-bold text-[#111111] group-hover:text-blue-600 transition-colors">
+              linkedin.com/in/saif-mithani-094651314/
             </span>
           </a>
 

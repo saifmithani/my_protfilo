@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Github, ExternalLink, Sparkles, CheckCircle2, Layers } from 'lucide-react';
+import { ArrowUpRight, Github, ExternalLink, CheckCircle2 } from 'lucide-react';
 import { PROJECTS } from '../data/projects';
 import MagneticButton from '../components/MagneticButton';
 
@@ -8,25 +8,22 @@ export default function ProjectsSection() {
   const [hoveredProject, setHoveredProject] = useState(null);
 
   return (
-    <section id="projects" className="py-32 px-6 bg-[#0a0a0c] relative overflow-hidden border-t border-white/5">
-      {/* Background Ambient Glow */}
-      <div className="absolute top-1/3 left-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-[140px] pointer-events-none" />
-
+    <section id="projects" className="py-32 px-6 bg-[#FAFAFA] relative overflow-hidden border-t border-[#E5E5E5]">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6 border-b border-white/5 pb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6 border-b border-[#E5E5E5] pb-8">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="w-8 h-[1px] bg-cyan-400" />
-              <span className="text-xs font-mono font-semibold tracking-widest text-cyan-400 uppercase">
+              <span className="w-8 h-[1px] bg-blue-600" />
+              <span className="text-xs font-mono font-semibold tracking-widest text-blue-600 uppercase">
                 03 // FEATURED WORK
               </span>
             </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-zinc-100 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-[#111111] tracking-tight">
               SELECTED PROJECTS
             </h2>
           </div>
-          <p className="text-sm font-mono text-zinc-400 max-w-md">
+          <p className="text-sm font-mono text-[#555555] max-w-md">
             Cinematic showcase of full-stack platforms and interactive web applications built with precision.
           </p>
         </div>
@@ -41,7 +38,7 @@ export default function ProjectsSection() {
                 key={project.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-100px' }}
+                viewport={{ once: true, margin: '-80px' }}
                 transition={{ duration: 0.8, delay: index * 0.15 }}
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
@@ -51,62 +48,61 @@ export default function ProjectsSection() {
               >
                 {/* Visual Preview Frame */}
                 <div
-                  className={`lg:col-span-7 group relative rounded-2xl overflow-hidden bg-[#121218] border border-white/10 hover:border-cyan-400/40 transition-all duration-500 shadow-2xl ${
+                  className={`lg:col-span-7 group relative rounded-lg overflow-hidden bg-white border border-[#E5E5E5] hover:border-[#111111] transition-all duration-300 shadow-sm hover:shadow-card-hover ${
                     isEven ? '' : 'lg:col-start-6'
                   }`}
-                  data-cursor="VIEW PROJECT"
+                  data-cursor="VIEW"
                 >
-                  {/* Browser Mockup Top Bar */}
-                  <div className="flex items-center justify-between px-4 py-3 bg-[#181822] border-b border-white/5 text-xs font-mono text-zinc-500 select-none">
+                  {/* Browser Mockup Light Bar */}
+                  <div className="flex items-center justify-between px-4 py-3 bg-[#F5F5F5] border-b border-[#E5E5E5] text-xs font-mono text-[#888888] select-none">
                     <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
                     </div>
-                    <span className="text-[11px] text-zinc-400 truncate max-w-[220px]">
+                    <span className="text-[11px] text-[#555555] truncate max-w-[220px] font-medium">
                       {project.url}
                     </span>
-                    <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-wider">
+                    <span className="text-[10px] text-blue-600 font-bold uppercase tracking-wider">
                       {project.year}
                     </span>
                   </div>
 
-                  {/* Interactive Visual Graphic Preview Box */}
-                  <div className="relative aspect-video w-full bg-[#0d0d12] p-8 flex flex-col justify-between overflow-hidden group-hover:scale-[1.02] transition-transform duration-700 ease-out">
+                  {/* Interactive Screenshot & Layout Container */}
+                  <div className="relative aspect-video w-full bg-[#FAFAFA] p-8 flex flex-col justify-between overflow-hidden group-hover:scale-[1.02] transition-transform duration-500 ease-out">
                     
-                    {/* Simulated App Screenshot Graphic UI */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-950/30 via-zinc-950 to-zinc-900 opacity-90" />
-                    <div className="absolute inset-0 bg-tech-grid opacity-20" />
+                    {/* Simulated Clean Light UI Graphic Layout */}
+                    <div className="absolute inset-0 bg-light-grid opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-white/40 to-blue-50/20" />
 
-                    {/* App Overlay Graphic */}
                     <div className="relative z-10 flex flex-col h-full justify-between">
                       <div className="flex items-center justify-between">
-                        <span className="px-3 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-cyan-300 font-mono text-xs font-semibold">
+                        <span className="px-3 py-1 rounded-md bg-blue-50 border border-blue-200 text-blue-700 font-mono text-xs font-semibold">
                           {project.type}
                         </span>
-                        <span className="font-mono text-4xl font-extrabold text-zinc-800 group-hover:text-cyan-500/30 transition-colors">
+                        <span className="font-mono text-4xl font-extrabold text-[#E5E5E5] group-hover:text-blue-600 transition-colors">
                           {project.number}
                         </span>
                       </div>
 
                       <div className="my-auto space-y-3">
-                        <h3 className="text-3xl sm:text-4xl font-display font-extrabold text-white tracking-tight group-hover:text-cyan-300 transition-colors">
+                        <h3 className="text-3xl sm:text-4xl font-display font-extrabold text-[#111111] tracking-tight group-hover:text-blue-600 transition-colors">
                           {project.name}
                         </h3>
-                        <p className="text-sm font-sans text-zinc-300 max-w-lg line-clamp-2">
+                        <p className="text-sm font-sans text-[#555555] max-w-lg font-normal line-clamp-2">
                           {project.subtitle}
                         </p>
                       </div>
 
-                      {/* Bottom Live Demo CTA Badge */}
-                      <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                      {/* Bottom Live Demo Link */}
+                      <div className="flex items-center gap-3 pt-4 border-t border-[#E5E5E5]">
                         <a
                           href={project.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-xs font-mono font-bold text-cyan-400 hover:text-cyan-300 group/link"
+                          className="inline-flex items-center gap-2 text-xs font-mono font-bold text-blue-600 hover:text-blue-800 group/link"
                         >
-                          <span>LIVE APPLICATION DEMO</span>
+                          <span>LIVE DEMO</span>
                           <ArrowUpRight className="w-4 h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
                         </a>
                       </div>
@@ -121,30 +117,30 @@ export default function ProjectsSection() {
                   }`}
                 >
                   <div className="space-y-2">
-                    <div className="flex items-center gap-3 text-xs font-mono text-cyan-400">
-                      <span className="font-bold">PROJECT {project.number}</span>
-                      <span>//</span>
-                      <span className="text-zinc-500">{project.type}</span>
+                    <div className="flex items-center gap-3 text-xs font-mono text-blue-600 font-bold">
+                      <span>PROJECT {project.number}</span>
+                      <span className="text-[#888888]">//</span>
+                      <span className="text-[#555555] font-normal">{project.type}</span>
                     </div>
 
-                    <h3 className="text-3xl sm:text-4xl font-display font-extrabold text-zinc-100 tracking-tight">
+                    <h3 className="text-3xl sm:text-4xl font-display font-extrabold text-[#111111] tracking-tight">
                       {project.name}
                     </h3>
                   </div>
 
-                  <p className="text-zinc-300 font-sans text-base leading-relaxed font-light">
+                  <p className="text-[#555555] font-sans text-base leading-relaxed font-normal">
                     {project.description}
                   </p>
 
                   {/* Feature Highlights */}
                   <div className="space-y-2">
-                    <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest block">
+                    <span className="text-[11px] font-mono text-[#888888] uppercase tracking-widest block font-semibold">
                       KEY ARCHITECTURE FEATURES
                     </span>
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {project.features.map((feat, i) => (
-                        <li key={i} className="flex items-center gap-2 text-xs font-mono text-zinc-300">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                        <li key={i} className="flex items-center gap-2 text-xs font-mono text-[#111111]">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                           <span>{feat}</span>
                         </li>
                       ))}
@@ -157,7 +153,7 @@ export default function ProjectsSection() {
                       {project.tech.map((t) => (
                         <span
                           key={t}
-                          className="px-2.5 py-1 rounded bg-white/[0.04] border border-white/10 text-xs font-mono text-zinc-300"
+                          className="px-2.5 py-1 rounded-md bg-white border border-[#E5E5E5] text-xs font-mono text-[#111111] shadow-subtle"
                         >
                           {t}
                         </span>
@@ -172,7 +168,7 @@ export default function ProjectsSection() {
                         href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-5 py-2.5 rounded-full bg-cyan-400 text-zinc-950 font-mono text-xs font-bold tracking-wider hover:bg-cyan-300 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.2)]"
+                        className="px-5 py-2.5 rounded-full bg-[#111111] text-[#FAFAFA] font-mono text-xs font-bold tracking-wider hover:bg-blue-600 transition-all flex items-center gap-2 shadow-sm"
                       >
                         <span>LIVE DEMO</span>
                         <ExternalLink className="w-3.5 h-3.5" />
@@ -185,7 +181,7 @@ export default function ProjectsSection() {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-5 py-2.5 rounded-full bg-white/[0.04] border border-white/15 text-zinc-200 font-mono text-xs font-medium tracking-wider hover:border-white/30 hover:text-white transition-all flex items-center gap-2"
+                          className="px-5 py-2.5 rounded-full bg-white border border-[#E5E5E5] text-[#111111] font-mono text-xs font-semibold tracking-wider hover:border-[#111111] transition-all flex items-center gap-2 shadow-subtle"
                         >
                           <Github className="w-3.5 h-3.5" />
                           <span>SOURCE CODE</span>

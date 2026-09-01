@@ -18,7 +18,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
+      if (window.scrollY > 30) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -26,7 +26,7 @@ export default function Navbar() {
 
       // Track active section for indicator
       const sections = ['hero', 'about', 'projects', 'skills', 'playground', 'journey', 'contact'];
-      const scrollPosition = window.scrollY + 200;
+      const scrollPosition = window.scrollY + 220;
 
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
@@ -67,20 +67,20 @@ export default function Navbar() {
           <a
             href="#hero"
             onClick={(e) => scrollToSection(e, '#hero')}
-            className="group flex items-center gap-2 text-zinc-100 font-display font-bold tracking-tight text-lg"
+            className="group flex items-center gap-2 text-[#111111] font-display font-bold tracking-tight text-lg"
             data-cursor="SAIF"
           >
-            <span className="text-cyan-400 group-hover:rotate-12 transition-transform duration-300">✦</span>
+            <span className="text-blue-600 group-hover:rotate-12 transition-transform duration-300">✦</span>
             <span>SAIF</span>
-            <span className="text-zinc-500 font-mono text-sm font-normal">/</span>
+            <span className="text-[#888888] font-mono text-sm font-normal">/</span>
           </a>
 
           {/* Desktop Navigation Links */}
           <nav
             className={`hidden md:flex items-center gap-1 rounded-full px-4 py-1.5 transition-all duration-300 border ${
               scrolled
-                ? 'bg-[#121216]/80 backdrop-blur-md border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.4)]'
-                : 'bg-white/[0.03] border-white/5 backdrop-blur-[2px]'
+                ? 'bg-white/90 backdrop-blur-md border-[#E5E5E5] shadow-subtle'
+                : 'bg-white/70 border-[#E5E5E5] backdrop-blur-[8px]'
             }`}
           >
             {NAV_LINKS.map((link) => {
@@ -94,17 +94,17 @@ export default function Navbar() {
                   onClick={(e) => scrollToSection(e, link.href)}
                   data-cursor={link.label}
                   className={`relative px-3.5 py-1.5 text-xs font-mono tracking-wider transition-colors duration-200 ${
-                    isActive ? 'text-cyan-300 font-semibold' : 'text-zinc-400 hover:text-zinc-100'
+                    isActive ? 'text-[#111111] font-bold' : 'text-[#555555] hover:text-[#111111]'
                   }`}
                 >
+                  <span className="relative z-10">{link.label}</span>
                   {isActive && (
                     <motion.span
-                      layoutId="activeNavBg"
-                      className="absolute inset-0 bg-cyan-500/10 rounded-full border border-cyan-400/20"
+                      layoutId="activeNavLine"
+                      className="absolute bottom-0 left-2 right-2 h-[2px] bg-blue-600 rounded-full"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
-                  <span className="relative z-10">{link.label}</span>
                 </a>
               );
             })}
@@ -116,10 +116,10 @@ export default function Navbar() {
               <a
                 href="#contact"
                 onClick={(e) => scrollToSection(e, '#contact')}
-                className="group flex items-center gap-1.5 px-4 py-2 text-xs font-mono tracking-wider rounded-full bg-zinc-900 border border-white/15 text-zinc-200 hover:border-cyan-400/50 hover:text-cyan-300 transition-all duration-300 shadow-sm"
+                className="group flex items-center gap-1.5 px-4 py-2 text-xs font-mono tracking-wider rounded-full bg-[#111111] text-[#FAFAFA] hover:bg-blue-600 transition-all duration-300 shadow-sm"
               >
                 <span>GET IN TOUCH</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
               </a>
             </MagneticButton>
           </div>
@@ -128,7 +128,7 @@ export default function Navbar() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Navigation Menu"
-            className="md:hidden p-2 rounded-full bg-zinc-900 border border-white/10 text-zinc-200 hover:text-cyan-400 transition-colors"
+            className="md:hidden p-2 rounded-full bg-white border border-[#E5E5E5] text-[#111111] hover:text-blue-600 transition-colors shadow-sm"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -143,10 +143,10 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="fixed inset-0 z-30 bg-[#0a0a0c]/95 backdrop-blur-xl flex flex-col justify-between p-8 pt-28 md:hidden border-b border-white/10"
+            className="fixed inset-0 z-30 bg-[#FAFAFA]/98 backdrop-blur-xl flex flex-col justify-between p-8 pt-28 md:hidden border-b border-[#E5E5E5]"
           >
             <div className="space-y-6">
-              <span className="text-[10px] font-mono tracking-widest text-cyan-400 uppercase">
+              <span className="text-[10px] font-mono tracking-widest text-blue-600 uppercase font-semibold">
                 // NAVIGATION
               </span>
               <div className="flex flex-col gap-4">
@@ -158,24 +158,24 @@ export default function Navbar() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.05 + 0.1 }}
-                    className="text-3xl font-display font-bold text-zinc-200 hover:text-cyan-400 flex items-center justify-between py-2 border-b border-white/5"
+                    className="text-3xl font-display font-bold text-[#111111] hover:text-blue-600 flex items-center justify-between py-2 border-b border-[#E5E5E5]"
                   >
                     <span>{link.label}</span>
-                    <ArrowUpRight className="w-6 h-6 text-zinc-600" />
+                    <ArrowUpRight className="w-6 h-6 text-[#888888]" />
                   </motion.a>
                 ))}
               </div>
             </div>
 
-            <div className="space-y-4 pt-6 border-t border-white/10">
-              <span className="text-xs font-mono text-zinc-400 block">DIRECT CONTACT</span>
+            <div className="space-y-4 pt-6 border-t border-[#E5E5E5]">
+              <span className="text-xs font-mono text-[#555555] block">DIRECT CONTACT</span>
               <a
                 href="mailto:saifmithani97@gmail.com"
-                className="text-sm font-mono text-cyan-300 hover:underline block"
+                className="text-sm font-mono text-blue-600 font-semibold hover:underline block"
               >
                 saifmithani97@gmail.com
               </a>
-              <p className="text-xs text-zinc-500 font-mono">B.Tech Student & Full Stack Web Developer</p>
+              <p className="text-xs text-[#888888] font-mono">B.Tech Student & Full Stack Web Developer</p>
             </div>
           </motion.div>
         )}
